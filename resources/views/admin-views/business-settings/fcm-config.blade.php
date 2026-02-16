@@ -3,7 +3,38 @@
 @section('title',translate('FCM Settings'))
 
 @push('css_or_js')
-
+<script>
+    function sendTestMessage() {
+        const url = '{{$arrocyWG['apiurl']}}';
+        const token = $('input[name="arrocyWG_token"]').val();
+        const receiver = $('input[name="test_phone_number"]').val();
+        $.ajax({
+            url,
+            method: 'POST',
+            data: {
+                _token: '{{csrf_token()}}',
+                token: token,
+                receiver: receiver,
+                msgtext: 'This is a test message from 6amMart.'
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            success: function (response) {
+                $('#loading').hide();
+                if (response.error) {
+                    toastr.error('Test message error: ' + (response.message || response.error || 'Unknown error'));
+                } else {
+                    toastr.success('Test message sent successfully: ' + receiver);
+                }
+            },
+            error: function () {
+                $('#loading').hide();
+                toastr.error('{{translate('messages.something_went_wrong')}}');
+            }
+        });
+    }
+</script>
 @endpush
 
 @section('content')
@@ -153,24 +184,29 @@
                                     </span>
                                 </label>
                             </div>
-                            <!-- <ol>
+                            <ol>
                                 <h3>How to get Arrocy Whatsapp Gateway Token:</h3>
                                 <li>Login/Register at <a href="https://arrocy.com" target="_blank">ARROCY.COM</a></li>
-                                <li>Go to menu Devices (copy TOKEN, put in the box below) and click on your phone number to show Whatsapp QR code</li>
+                                <li>Go to menu Instances (copy TOKEN, put in the box below) OR Click ADD NEW to add new instance</li>
                                 <li>Open Whatsapp on your phone, Menu >> Linked devices</li>
                                 <li>You will see your profile picture if successfully connected</li>
-                            </ol> -->
+                            </ol>
                             <div class="form-group">
-                                <label class="input-label" for="exampleFormControlInput1">arrocyWG node server:</label>
-                                <input name="arrocyWG_nodeurl" class="form-control" value="{{$arrocyWG['nodeurl']}}" placeholder="https://arrocy.com/api" />
+                                <label class="input-label" for="exampleFormControlInput1" hidden>arrocyWG API URL:</label>
+                                <input name="arrocyWG_apiurl" class="form-control" value="{{$arrocyWG['apiurl']}}" placeholder="https://arrocy.com/api/send" readonly hidden />
                             </div>
                             <div class="form-group">
                                 <label class="input-label" for="exampleFormControlInput1">arrocyWG token:</label>
-                                <input name="arrocyWG_token" class="form-control" value="{{$arrocyWG['token']}}" placeholder="LFizPIAbx3go84qzSQJt" />
+                                <input name="arrocyWG_token" class="form-control" value="{{$arrocyWG['token']}}" placeholder="01KHHG7HC9K6B3A3OVM3SYAP4Q" />
                             </div>
                             <div class="form-group">
                                 <label class="input-label" for="exampleFormControlInput1">arrocyWG OTP template:</label>
                                 <input name="arrocyWG_otp_template" class="form-control" value="{{$arrocyWG['otp_template']}}" placeholder="OTP code: *#OTP#*" />
+                            </div>
+                            <div class="form-group">
+                                <label class="input-label" for="test_phone_number">Test Phone Number:</label>
+                                <input type="text" name="test_phone_number" class="form-control col-6 mb-2" placeholder="{{ translate('Enter phone number with country code to send test message') }}" />
+                                <button type="button" class="btn btn--warning" onclick="sendTestMessage()">Send Test Message</button>
                             </div>
 
                             <div class="btn--container justify-content-end">
