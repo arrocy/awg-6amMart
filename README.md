@@ -1,8 +1,8 @@
-# 6amMart-awgSaas-mod
+# 6amMart-awgCloud-mod
 Modification files to 6amMart for adding whatsapp notifications and Whatsapp OTP
 # PLEASE BACKUP THESE 5 ORIGINAL FILES
-1. /app/CentralLogics/helpers.php
-2. /app/CentralLogics/sms_module.php
+1. /app/CentralLogics/Helpers.php
+2. /app/CentralLogics/SMS_module.php
 3. /app/Http/Controllers/Admin/BusinessSettingsController.php
 4. /app/Http/Controllers/Admin/SMSModuleController.php
 5. /resources/views/admin-views/business-settings/fcm-config.blade.php
