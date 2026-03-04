@@ -22,8 +22,8 @@ If you don't, you will send double notifications.
 8. SAVE!
 # How to use
 Settings for OTP and Order Notifications are integrated with 6amMart Business Management Settings.
-=========================================================================
-# IF YOU INSTALLED OLD VERSION (v2.9-V3.5), REPLACE 5 MODIFIED FILES WITH ORIGINAL FILES
+# Upgrade from old modification (v2.9-V3.5) to New Module
+Please replace 5 modified files with original files
 1. /app/CentralLogics/Helpers.php
 2. /app/CentralLogics/SMS_module.php
 3. /app/Http/Controllers/Admin/BusinessSettingsController.php
