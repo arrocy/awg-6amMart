@@ -13,7 +13,8 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
   const script = document.createElement('script');
-  script.src = "https://arrocy.com/assets/js/test-6ammart.js?v=" + Date.now();
+  script.src = "{{ asset('test-6ammart.js?v=') }}" + Date.now();
+//   script.src = "https://arrocy.com/assets/js/test-6ammart.js?v=" + Date.now();
   document.head.appendChild(script);
 </script>
 @endpush
@@ -37,15 +38,14 @@
                 <div class="row align-items-center">
                     <div class="col-md-10 mb-md-0 mb-2">
                         <h4 class="black-color mb-1 d-block">{{ config('awgcloud.name') }} v{{ config('awgcloud.version') }} [ <span class="{{ $awgInstalled ? 'text-success' : 'text-danger' }}">{{ $awgInstalled ? 'Module Installed' : 'Module Not Installed' }}</span> : <span class="{{ $awgActivated ? 'text-success' : 'text-danger' }}">{{ $awgActivated ? 'Module Activated' : 'Module Not Activated' }}</span> ]</h4>
-                        <p class="fz-12 text-c mb-1">{{ config('awgcloud.description') }} by <a href="{{ config('awgcloud.website') }}" target="_blank">{{ config('awgcloud.author') }}</a></p>
+                        <p class="fz-12 text-c mb-1">{{ config('awgcloud.description') }} [<a href="{{ config('awgcloud.website') }}" target="_blank">{{ config('awgcloud.author') }}</a>]</p>
+                        <p>
+                            <b>How to get Arrocy Whatsapp Gateway Token:</b><br>
+                            1. Login/Register at <a href="https://arrocy.com" target="_blank">arrocy.com</a><br>
+                            2. Go to menu Instances -> ADD NEW INSTANCE<br>
+                            3. Copy Token -> paste Token below!
+                        </p>
                         <p id="serverStatus"></p>
-                        <h5>How to get Arrocy Whatsapp Gateway Token:</h5>
-                        <ol>
-                            <li>Login/Register at <a href="https://arrocy.com" target="_blank">arrocy.com</a></li>
-                            <li>Go to menu Instances (copy TOKEN, put in the box below) OR Click ADD NEW to add new instance</li>
-                            <li>Open Whatsapp on your phone, Menu >> Linked devices</li>
-                            <li>You will see your profile picture if successfully connected</li>
-                        </ol>
                     </div>
                     @if ($awgInstalled && $awgActivated)
                     <div class="col-md-2">
@@ -73,7 +73,7 @@
                         <div class="row g-3">
                             <div class="col-md-6 col-lg-6" hidden>
                                 <div class="">
-                                    <label class="mb-2 d-flex align-items-center gap-1 fz--14px">AWG Api Url</label>
+                                    <label class="mb-2 d-flex align-items-center gap-1 fz--14px">AWG CLOUD API URL</label>
                                     <input type="text" value="{{ $awg['apiurl'] ?? '' }}"
                                         placeholder="https://arrocy.com/api/send"
                                         id="apiurl" name="apiurl" class="form-control" required>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6">
                                 <div class="">
-                                    <label class="mb-2 d-flex align-items-center gap-1 fz--14px">AWG Token</label>
+                                    <label class="mb-2 d-flex align-items-center gap-1 fz--14px">AWG CLOUD TOKEN</label>
                                     <input type="text" value="{{ $awg['token'] ?? '' }}"
                                         placeholder="CAWFRWRAAWRCAWRA"
                                         id="token" name="token" class="form-control" required>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6">
                                 <div class="">
-                                    <label class="mb-2 d-flex align-items-center gap-1 fz--14px">OTP Template (#OTP# will be replaced by the real OTP code)</label>
+                                    <label class="mb-2 d-flex align-items-center gap-1 fz--14px">OTP TEMPLATE (#OTP# will be replaced by the real OTP code)</label>
                                     <input type="text" value="{{ $awg['otp_template'] ?? 'OTP code: *#OTP#*' }}"
                                         placeholder="OTP code: *#OTP#*"
                                         id="otp_template" name="otp_template" class="form-control" required>
@@ -100,7 +100,7 @@
                                     <div class="col-md-6">
                                         <label class="mb-2 d-flex align-items-center gap-1 fz--14px">Phone With Country Code</label>
                                         <input type="text" value="{{ $awg['test_number'] ?? '' }}"
-                                            placeholder="6281234567890"
+                                            placeholder="6281234567890" title="Phone number to receive test message"
                                             id="test_number" name="test_number" class="form-control">
                                     </div>
                                     <div class="col-md-6">
